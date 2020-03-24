@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_pos_config_fiscal_recorder" model="ir.ui.view">
+            <field name="name">Pos Config Fiscal Recorder</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='posbox_reference']/div/div[2]/div[2]/div[5]" position="after">
+                     <div id="fiscal_printer" class="row" attrs="{'invisible': [('iface_print_via_proxy','=', False)]}">
+                         <label string="Fiscal Recorder" for="fiscal_recorder" class="col-lg-3 o_light_label"/>
+                         <field name="fiscal_recorder"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_pos_config_fiscal_recorder_kanban" model="ir.ui.view">
+            <field name="name">Pos Config Fiscal Recorder Kanban</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_config_kanban"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//div[hasclass('o_kanban_card_manage_pane')]/div[1]" position="inside">
+                     <field name="fiscal_recorder" invisible="1"/>
+                     <div class="col-6 o_kanban_card_manage_section o_kanban_manage_view" attrs="{'invisible': [('fiscal_recorder','=', False)]}">
+                         <div role="menuitem" class="o_kanban_card_manage_title">
+                             <span>Fiscal Reports</span>
+                         </div>
+                         <div role="menuitem">
+                             <a name="print_z_report" type="object">Print Z-Report</a>
+                         </div>
+                         <div role="menuitem">
+                             <a name="print_x_report" type="object">Print X-Report</a>
+                         </div>
+                         <div role="menuitem">
+                             <a name="print_product_x_report" type="object">Print Product X-Report</a>
+                         </div>
+                     </div>
+                 </xpath>
+            </field>
+        </record>
+
+        <record id="view_pos_session_fiscal_recorder_form" model="ir.ui.view">
+            <field name="name">Pos Session Fiscal Recorder Reports</field>
+            <field name="model">pos.session</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//header" position="inside">
+                     <button name="print_z_report" type="object" string="Print Z-Report"
+                            class="oe_highlight" attrs="{'invisible': [('show_reports','=', False)]}"/>
+                     <button name="print_x_report" type="object" string="Print X-Report"
+                            class="oe_highlight" attrs="{'invisible': [('show_reports','=', False)]}"/>
+                     <button name="print_product_x_report" type="object" string="Print Product X-Report"
+                            class="oe_highlight" help="Print daily product report without zeroing" attrs="{'invisible': [('show_reports','=', False)]}"/>
+                 </xpath>
+                <field name="config_id" position="after">
+                    <field name="show_reports" invisible="1"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
