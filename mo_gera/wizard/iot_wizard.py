@@ -36,5 +36,4 @@ class UploadIotBoxGera(models.TransientModel):
             for box in self.iot_box_ids:
                 self.fiscal_recorder.upload_gera_settings(box.ip)
 
-        return self.env['ir.actions.act_window'].for_xml_id('iot', 'iot_box_action')
-
+        return self.env['ir.actions.act_window'].for_xml_id('mo_ukr_fiscal_recorder', 'ukr_fiscal_recorder_action_window')

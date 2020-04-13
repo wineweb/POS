@@ -16,7 +16,7 @@ _logger = logging.getLogger(__name__)
 class PosConfig(models.Model):
     _inherit = 'pos.config'
 
-    fiscal_recorder = fields.Many2one('ukr.fiscal.recorder', string='Fiscal Recorder', compute='get_fiscal_recorder')
+    fiscal_recorder = fields.Many2one('ukr.fiscal.recorder', string='Fiscal Recorder', compute='get_fiscal_recorder', store=True)
     fiscal_receipt_type = fields.Selection(related='fiscal_recorder.fiscal_receipt_type', string="Fiscal Receipt Type",
                                            reqdonly=True)
     fiscal_settings_controller = fields.Char(related='fiscal_recorder.fiscal_settings_controller',
