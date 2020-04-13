@@ -12,7 +12,7 @@ var _t = core._t
 var utils = require('web.utils')
 var round_pr = utils.round_precision
 var devices = require('point_of_sale.devices')
-var posPayment = require('pos_iot.payment');
+var PaymentIOT = require('pos_iot.payment');
 var PrinterProxy = require('pos_iot.Printer');
 var Session = require('web.Session');
 var fiscal_taxes = {}
@@ -291,7 +291,7 @@ models.Order = models.Order.extend({
     },
 })
 
-posPayment.PaymentIOT.include({
+PaymentIOT.include({
 
     _onValueChange: function (resolve, order, data) {
         clearTimeout(this.payment_update);
