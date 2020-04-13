@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_upload_iot_box_gera" model="ir.ui.view">
+        <field name="name">Upload settings to IoT box</field>
+        <field name="model">upload.iot.box.gera</field>
+        <field name="arch" type="xml">
+            <form string="Upload Settings to IoT Box">
+                <group>
+                    <field name="fiscal_recorder"/>
+                    <field name="upload_all"/>
+                    <field name="iot_box_ids" widget="many2many_tags" attrs="{'readonly': [('upload_all','=', True)]}"/>
+                </group>
+                <footer>
+                    <button type="object" name="upload" string="Upload"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_upload_iot_box_gera" model="ir.actions.act_window">
+        <field name="name">Upload Settings to IoT Box</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">upload.iot.box.gera</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_upload_iot_box_gera"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

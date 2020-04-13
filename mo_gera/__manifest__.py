@@ -2,7 +2,7 @@
 
 {
     'name': 'GERA MG N707TS',
-    'version': '1.0',
+    'version': '1.0.1',
     'category': 'Point of Sale',
     'sequence': 6,
     'summary': 'Module which adds model of fiscal recorder GERA MG N707TS to ukrainian fiscal recorders module',
@@ -19,6 +19,7 @@
     'data': [
         'views/fiscal_recorder_gera_view.xml',
         'views/res_users_views.xml',
+        'wizard/iot_wizard.xml',
         'static/src/xml/templates.xml',
         'security/ir.model.access.csv'
     ],

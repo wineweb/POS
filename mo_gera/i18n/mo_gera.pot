@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-10 14:39+0000\n"
-"PO-Revision-Date: 2020-04-10 14:39+0000\n"
+"POT-Creation-Date: 2020-04-13 09:10+0000\n"
+"PO-Revision-Date: 2020-04-13 09:10+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,8 +23,8 @@ msgstr ""
 
 #. module: mo_gera
 #. openerp-web
-#: code:addons/mo_gera/static/src/js/screens.js:0
-#: code:addons/mo_gera/static/src/js/screens.js:0
+#: code:addons/mo_gera/static/src/js/gera.js:0
+#: code:addons/mo_gera/static/src/js/gera.js:0
 #, python-format
 msgid "Can not print receipt:"
 msgstr ""
@@ -52,9 +52,16 @@ msgstr ""
 
 #. module: mo_gera
 #. openerp-web
-#: code:addons/mo_gera/static/src/js/screens.js:0
+#: code:addons/mo_gera/static/src/js/gera.js:0
 #, python-format
 msgid "Check if receipt printed press 'Validate' button."
+msgstr ""
+
+#. module: mo_gera
+#: code:addons/mo_gera/models/gera_mgn707ts.py:0
+#: code:addons/mo_gera/models/gera_mgn707ts.py:0
+#, python-format
+msgid "Choose IoT Box"
 msgstr ""
 
 #. module: mo_gera
@@ -72,18 +79,21 @@ msgstr ""
 #. module: mo_gera
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_payment__create_uid
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_tax__create_uid
+#: model:ir.model.fields,field_description:mo_gera.field_upload_iot_box_gera__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: mo_gera
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_payment__create_date
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_tax__create_date
+#: model:ir.model.fields,field_description:mo_gera.field_upload_iot_box_gera__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: mo_gera
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_payment__display_name
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_tax__display_name
+#: model:ir.model.fields,field_description:mo_gera.field_upload_iot_box_gera__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -91,6 +101,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_payment__fiscal_recorder
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_tax__fiscal_recorder
 #: model:ir.model.fields,field_description:mo_gera.field_ukr_fiscal_recorder__fiscal_recorder
+#: model:ir.model.fields,field_description:mo_gera.field_upload_iot_box_gera__fiscal_recorder
 msgid "Fiscal Recorder"
 msgstr ""
 
@@ -137,24 +148,33 @@ msgstr ""
 #. module: mo_gera
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_payment__id
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_tax__id
+#: model:ir.model.fields,field_description:mo_gera.field_upload_iot_box_gera__id
 msgid "ID"
+msgstr ""
+
+#. module: mo_gera
+#: model:ir.model.fields,field_description:mo_gera.field_upload_iot_box_gera__iot_box_ids
+msgid "IoT Box"
 msgstr ""
 
 #. module: mo_gera
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_payment____last_update
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_tax____last_update
+#: model:ir.model.fields,field_description:mo_gera.field_upload_iot_box_gera____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: mo_gera
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_payment__write_uid
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_tax__write_uid
+#: model:ir.model.fields,field_description:mo_gera.field_upload_iot_box_gera__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: mo_gera
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_payment__write_date
 #: model:ir.model.fields,field_description:mo_gera.field_gera_fiscal_recorder_tax__write_date
+#: model:ir.model.fields,field_description:mo_gera.field_upload_iot_box_gera__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -193,16 +213,21 @@ msgstr ""
 
 #. module: mo_gera
 #. openerp-web
-#: code:addons/mo_gera/static/src/js/screens.js:0
+#: code:addons/mo_gera/static/src/js/gera.js:0
 #, python-format
 msgid "Printing receipt..."
 msgstr ""
 
 #. module: mo_gera
 #. openerp-web
-#: code:addons/mo_gera/static/src/js/screens.js:0
+#: code:addons/mo_gera/static/src/js/gera.js:0
 #, python-format
 msgid "Receipt Printed?"
+msgstr ""
+
+#. module: mo_gera
+#: model_terms:ir.ui.view,arch_db:mo_gera.view_fiscal_recorder_gera
+msgid "Reload Gera Settings"
 msgstr ""
 
 #. module: mo_gera
@@ -224,15 +249,43 @@ msgstr ""
 
 #. module: mo_gera
 #. openerp-web
-#: code:addons/mo_gera/static/src/js/screens.js:0
-#: code:addons/mo_gera/static/src/js/screens.js:0
+#: code:addons/mo_gera/static/src/js/gera.js:0
+#: code:addons/mo_gera/static/src/js/gera.js:0
 #, python-format
 msgid "The fiscal receipt error"
 msgstr ""
 
 #. module: mo_gera
+#: code:addons/mo_gera/wizard/iot_wizard.py:0
+#: code:addons/mo_gera/wizard/iot_wizard.py:0
+#, python-format
+msgid "There is not IoT Boxes"
+msgstr ""
+
+#. module: mo_gera
 #: model:ir.model,name:mo_gera.model_ukr_fiscal_recorder
 msgid "Ukrainian Fiscal Registers"
+msgstr ""
+
+#. module: mo_gera
+#: model_terms:ir.ui.view,arch_db:mo_gera.view_upload_iot_box_gera
+msgid "Upload"
+msgstr ""
+
+#. module: mo_gera
+#: model:ir.model,name:mo_gera.model_upload_iot_box_gera
+msgid "Upload Gera Settings to IoT Box wizard"
+msgstr ""
+
+#. module: mo_gera
+#: model:ir.actions.act_window,name:mo_gera.action_upload_iot_box_gera
+#: model_terms:ir.ui.view,arch_db:mo_gera.view_upload_iot_box_gera
+msgid "Upload Settings to IoT Box"
+msgstr ""
+
+#. module: mo_gera
+#: model:ir.model.fields,field_description:mo_gera.field_upload_iot_box_gera__upload_all
+msgid "Upload for All IoT Box"
 msgstr ""
 
 #. module: mo_gera
@@ -250,6 +303,12 @@ msgstr ""
 #. module: mo_gera
 #: code:addons/mo_gera/models/gera_mgn707ts.py:0
 #, python-format
+msgid "You Can not create fiscal recorder with same serial number!"
+msgstr ""
+
+#. module: mo_gera
+#: code:addons/mo_gera/models/gera_mgn707ts.py:0
+#, python-format
 msgid "You can not set fiscal recorder without payments!"
 msgstr ""
 
@@ -260,6 +319,13 @@ msgid "You can not set fiscal recorder without taxes!"
 msgstr ""
 
 #. module: mo_gera
+#: code:addons/mo_gera/models/gera_mgn707ts.py:0
+#, python-format
+msgid "You need receipt controller to print fiscal receipts"
+msgstr ""
+
+#. module: mo_gera
+#: code:addons/mo_gera/models/gera_mgn707ts.py:0
 #: code:addons/mo_gera/models/gera_mgn707ts.py:0
 #, python-format
 msgid "You should close all active POS sessions before make changes"

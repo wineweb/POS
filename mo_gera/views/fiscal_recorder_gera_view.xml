@@ -6,11 +6,14 @@
             <field name="model">ukr.fiscal.recorder</field>
             <field name="inherit_id" ref="mo_ukr_fiscal_recorder.ukr_fiscal_recorder_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//form/header" position="inside">
+                    <button name="reload_gera_settings" string="Reload Gera Settings" type="object" class="btn-primary" attrs="{'invisible': [('fiscal_recorder','!=', 'gera_mgn707ts')]}"/>
+                </xpath>
                 <xpath expr="//group[@id='settings']" position="inside">
                     <group attrs="{'invisible': [('fiscal_recorder','!=', 'gera_mgn707ts')]}">
                         <field name="gr_printer_ip" attrs="{'required': [('fiscal_recorder','=', 'gera_mgn707ts')]}"/>
                         <field name="gr_cashier_id" attrs="{'required': [('fiscal_recorder','=', 'gera_mgn707ts')]}"/>
-                        <field name="gr_cashier_password" attrs="{'required': [('fiscal_recorder','=', 'gera_mgn707ts')]}"/>
+                        <field name="gr_cashier_password" attrs="{'required': [('fiscal_recorder','=', 'gera_mgn707ts')]}" password="1"/>
                         <field name="gr_comment_in_io_receipt"/>
 <!--                        <field name="gr_comment_in_io_sale_tape" attrs="{'invisible': [('gr_comment_in_io_receipt','=', False)]}"/>-->
                     </group>

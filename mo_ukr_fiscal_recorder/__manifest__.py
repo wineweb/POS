@@ -2,7 +2,7 @@
 
 {
     'name': 'Ukrainian Fiscal Recorders',
-    'version': '1.1',
+    'version': '1.1.1',
     'category': 'Point of Sale',
     'sequence': 6,
     'summary': 'Module to manage fiscal recorders in Point of Sale',

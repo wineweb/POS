@@ -44,12 +44,6 @@ class UkrFiscalRecorder(models.Model):
                             dict(recorder._fields['fiscal_recorder'].selection).get(str(recorder.fiscal_recorder))))
         return res
 
-    def reload_settings(self):
-        pos_config = self.env['pos.config'].search([('fiscal_recorder', '=', self.id)])
-        if pos_config:
-            controller_path = self.settings_controller_path[self.fiscal_recorder]
-            domain = self.env['pos.config'].make_domain(pos_config.proxy_ip, controller_path)
-
     def write(self, vals):
         if 'fiscal_settings_controller' in vals:
             if vals['fiscal_settings_controller'][0] != '/':

@@ -86,6 +86,13 @@ class FiscalRecorderGeraMGN707TS(models.Model):
     gr_comment_in_io_receipt = fields.Boolean('Comment in IO Receipt')
     gr_comment_in_io_sale_tape = fields.Boolean('Save IO Comment in Sale Tape')
 
+    @api.constrains('fiscal_recorder', 'fiscal_serial')
+    def check_serial(self):
+        if self.fiscal_recorder == _key:
+            exist = self.search([('fiscal_recorder', '=', self.fiscal_recorder), ('fiscal_serial', '=', self.fiscal_serial)])
+            if exist:
+                raise UserError(_('You Can not create fiscal recorder with same serial number!'))
+
     @api.onchange('gr_comment_in_io_receipt')
     def change_comment_io(self):
         for recorder in self:
@@ -98,9 +105,85 @@ class FiscalRecorderGeraMGN707TS(models.Model):
             if any((field in vals.keys() for field in fiscal.settings_fields[_key])) or vals.get('gr_fiscal_tax_ids', False) or vals.get('gr_fiscal_tax_ids', False):
                 pos_config = self.env['pos.config'].search([('fiscal_recorder', '=', record.id)])
                 if not pos_config:
+                    iot_boxes = self.env['iot.box'].search([])
+                    if iot_boxes:
+                        view_id = self.env.ref('mo_gera.view_upload_iot_box_gera').id
+                        return {
+                            'name': _("Choose IoT Box"),
+                            'view_mode': 'form',
+                            'view_id': view_id,
+                            'view_type': 'form',
+                            'res_model': 'upload.iot.box.gera',
+                            'type': 'ir.actions.act_window',
+                            'views': [(view_id, 'form')],
+                            'target': 'new',
+                        }
                     continue
                 for pos in pos_config:
                     if pos.mapped('session_ids').filtered(lambda s: s.state != 'closed'):
                         raise ValidationError(_('You should close all active POS sessions before make changes'))
                     self.env['pos.config'].upload_settings(pos_config)
         return res
+
+    def reload_gera_settings(self):
+        pos_config = self.env['pos.config'].search([('fiscal_recorder', '=', self.id)])
+        if pos_config.mapped('session_ids').filtered(lambda s: s.state != 'closed'):
+            raise ValidationError(_('You should close all active POS sessions before make changes'))
+
+        if not pos_config:
+            iot_boxes = self.env['iot.box'].search([])
+            if iot_boxes:
+                view_id = self.env.ref('mo_gera.view_upload_iot_box_gera').id
+                return {
+                    'name': _("Choose IoT Box"),
+                    'view_mode': 'form',
+                    'view_id': view_id,
+                    'view_type': 'form',
+                    'res_model': 'upload.iot.box.gera',
+                    'type': 'ir.actions.act_window',
+                    'views': [(view_id, 'form')],
+                    'target': 'new',
+                }
+            return
+
+        for config in pos_config:
+            self.env['pos.config'].upload_settings(config)
+
+    def upload_gera_settings(self, ip):
+        recorder_settings = self
+
+        controller_path = fiscal.settings_controller_path[recorder_settings.fiscal_recorder]
+        domain = self.env['pos.config'].make_domain(ip, controller_path)
+
+        settings_fields = fiscal.settings_fields[recorder_settings.fiscal_recorder]
+        tax_vals = self.env[fiscal.tax_model[recorder_settings.fiscal_recorder]].get_model_taxes()
+        payment_vals = self.env[fiscal.payment_model[recorder_settings.fiscal_recorder]].get_model_payment()
+        receipt_controller = fiscal.receipt_controller_path.get(recorder_settings.fiscal_recorder, False)
+        if not receipt_controller:
+            raise ValidationError(_('You need receipt controller to print fiscal receipts'))
+
+        settings_dict = recorder_settings.read(settings_fields)[0]  # get values from settings fields
+        settings_dict['taxes'] = tax_vals
+        settings_dict['payments'] = payment_vals
+        settings_dict['receipt_controller'] = receipt_controller
+        settings_dict['fiscal_serial'] = recorder_settings.fiscal_serial
+
+        data = {
+            'params': settings_dict
+        }
+
+        send_data = json.dumps(data)
+        try:
+            headers = {'Content-Type': 'application/json'}
+            # send settings
+            response = requests.post(url=domain, data=send_data, headers=headers, timeout=6.0)
+        except Exception as error:
+            _logger.error(error)
+            raise ValidationError(error)
+        if response.status_code == 200:
+            response_json = json.loads(response.text)
+            if response_json.get('result', False):
+                raise ValidationError(response_json['result'])
+        else:
+            _logger.error(response.text)
+            raise ValidationError(response.text)
