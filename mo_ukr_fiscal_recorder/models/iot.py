@@ -15,7 +15,7 @@ class IotDevice(models.Model):
     def change_printer(self):
         for device in self:
             if device.printer_model:
-                configs = self.env['pos.config'].search([('fiscal_recorder', 'in', device.printer_model.id)])
+                configs = self.env['pos.config'].search([('fiscal_recorder', 'in', device.printer_model.ids)])
                 if configs:
                     if configs.mapped('session_ids').filtered(lambda s: s.state != 'closed'):
                         raise ValidationError(_('You should close all active POS sessions before make changes'))
