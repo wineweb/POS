@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="iot_device_form_mg707ts" model="ir.ui.view">
+        <field name="name">iot.device.view.form.mg707ts</field>
+        <field name="model">iot.device</field>
+        <field name="inherit_id" ref="iot.iot_device_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[last()]" position="after">
+                <page name="fiscal" string="Fiscal Printer" attrs="{'invisible': [('type','!=', 'printer')]}">
+                    <group>
+                        <field name="printer_model"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

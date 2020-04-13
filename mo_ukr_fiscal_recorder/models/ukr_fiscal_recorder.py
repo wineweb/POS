@@ -26,6 +26,7 @@ class UkrFiscalRecorder(models.Model):
 
     fiscal_recorder = fields.Selection([], string='Fiscal Recorder')
     fiscal_number = fields.Char('Fiscal Number')
+    fiscal_serial = fields.Char('Fiscal Serial Number', required=True)
     fiscal_receipt_type = fields.Selection([('json', 'JSON'), ('xml', 'XML')], default='json', string='Fiscal Receipt Type')
     fiscal_settings_controller = fields.Char(string='Settings Controller Route')
     fiscal_receipt_controller = fields.Char(string='Receipt Controller Route')
@@ -42,6 +43,12 @@ class UkrFiscalRecorder(models.Model):
                 res.append((recorder.id,
                             dict(recorder._fields['fiscal_recorder'].selection).get(str(recorder.fiscal_recorder))))
         return res
+
+    def reload_settings(self):
+        pos_config = self.env['pos.config'].search([('fiscal_recorder', '=', self.id)])
+        if pos_config:
+            controller_path = self.settings_controller_path[self.fiscal_recorder]
+            domain = self.env['pos.config'].make_domain(pos_config.proxy_ip, controller_path)
 
     def write(self, vals):
         if 'fiscal_settings_controller' in vals:

@@ -7,10 +7,14 @@
             <field name="model">pos.config</field>
             <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//div[@id='posbox_reference']/div/div[2]/div[2]/div[5]" position="after">
-                     <div id="fiscal_printer" class="row" attrs="{'invisible': [('iface_print_via_proxy','=', False)]}">
-                         <label string="Fiscal Recorder" for="fiscal_recorder" class="col-lg-3 o_light_label"/>
-                         <field name="fiscal_recorder"/>
+                <xpath expr="//div[@id='posbox_reference']" position="inside">
+                    <div id="fiscal_printer" class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Fiscal Recorder</span>
+                            <div class="content-group mt16">
+                                <field name="fiscal_recorder"/>
+                            </div>
+                        </div>
                     </div>
                 </xpath>
             </field>
@@ -21,23 +25,24 @@
             <field name="model">pos.config</field>
             <field name="inherit_id" ref="point_of_sale.view_pos_config_kanban"/>
             <field name="arch" type="xml">
-                 <xpath expr="//div[hasclass('o_kanban_card_manage_pane')]/div[1]" position="inside">
-                     <field name="fiscal_recorder" invisible="1"/>
-                     <div class="col-6 o_kanban_card_manage_section o_kanban_manage_view" attrs="{'invisible': [('fiscal_recorder','=', False)]}">
-                         <div role="menuitem" class="o_kanban_card_manage_title">
-                             <span>Fiscal Reports</span>
-                         </div>
-                         <div role="menuitem">
-                             <a name="print_z_report" type="object">Print Z-Report</a>
-                         </div>
-                         <div role="menuitem">
-                             <a name="print_x_report" type="object">Print X-Report</a>
-                         </div>
-                         <div role="menuitem">
-                             <a name="print_product_x_report" type="object">Print Product X-Report</a>
-                         </div>
-                     </div>
-                 </xpath>
+                <xpath expr="//div[hasclass('o_kanban_card_manage_pane')]/div[1]" position="inside">
+                    <field name="fiscal_recorder" invisible="1"/>
+                    <div class="col-6 o_kanban_card_manage_section o_kanban_manage_view"
+                         attrs="{'invisible': [('fiscal_recorder','=', False)]}">
+                        <div role="menuitem" class="o_kanban_card_manage_title">
+                            <span>Fiscal Reports</span>
+                        </div>
+                        <div role="menuitem">
+                            <a name="print_z_report" type="object">Print Z-Report</a>
+                        </div>
+                        <div role="menuitem">
+                            <a name="print_x_report" type="object">Print X-Report</a>
+                        </div>
+                        <div role="menuitem">
+                            <a name="print_product_x_report" type="object">Print Product X-Report</a>
+                        </div>
+                    </div>
+                </xpath>
             </field>
         </record>
 
@@ -46,14 +51,15 @@
             <field name="model">pos.session</field>
             <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
             <field name="arch" type="xml">
-                 <xpath expr="//header" position="inside">
-                     <button name="print_z_report" type="object" string="Print Z-Report"
+                <xpath expr="//header" position="inside">
+                    <button name="print_z_report" type="object" string="Print Z-Report"
                             class="oe_highlight" attrs="{'invisible': [('show_reports','=', False)]}"/>
-                     <button name="print_x_report" type="object" string="Print X-Report"
+                    <button name="print_x_report" type="object" string="Print X-Report"
                             class="oe_highlight" attrs="{'invisible': [('show_reports','=', False)]}"/>
-                     <button name="print_product_x_report" type="object" string="Print Product X-Report"
-                            class="oe_highlight" help="Print daily product report without zeroing" attrs="{'invisible': [('show_reports','=', False)]}"/>
-                 </xpath>
+                    <button name="print_product_x_report" type="object" string="Print Product X-Report"
+                            class="oe_highlight" help="Print daily product report without zeroing"
+                            attrs="{'invisible': [('show_reports','=', False)]}"/>
+                </xpath>
                 <field name="config_id" position="after">
                     <field name="show_reports" invisible="1"/>
                 </field>
