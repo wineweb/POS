@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="view_fiscal_recorder_gera" model="ir.ui.view">
+            <field name="name">Fiscal Recorder Gera</field>
+            <field name="model">ukr.fiscal.recorder</field>
+            <field name="inherit_id" ref="mo_ukr_fiscal_recorder.ukr_fiscal_recorder_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@id='settings']" position="inside">
+                    <group attrs="{'invisible': [('fiscal_recorder','!=', 'gera_mgn707ts')]}">
+                        <field name="gr_printer_ip" attrs="{'required': [('fiscal_recorder','=', 'gera_mgn707ts')]}"/>
+                        <field name="gr_cashier_id" attrs="{'required': [('fiscal_recorder','=', 'gera_mgn707ts')]}"/>
+                        <field name="gr_cashier_password" attrs="{'required': [('fiscal_recorder','=', 'gera_mgn707ts')]}"/>
+                        <field name="gr_comment_in_io_receipt"/>
+<!--                        <field name="gr_comment_in_io_sale_tape" attrs="{'invisible': [('gr_comment_in_io_receipt','=', False)]}"/>-->
+                    </group>
+                </xpath>
+                <xpath expr="//group[@id='taxes']" position="inside">
+                      <field name="gr_fiscal_tax_ids" widget="one2many_list" nolabel="1" attrs="{'invisible': [('fiscal_recorder','!=', 'gera_mgn707ts')]}">
+                          <tree editable="bottom">
+                              <field name="number"/>
+                              <field name="tax_ids" widget="many2many_tags"/>
+                          </tree>
+                      </field>
+                </xpath>
+                 <xpath expr="//group[@id='payments']" position="inside">
+                      <field name="gr_fiscal_payment_ids" widget="one2many_list" nolabel="1" attrs="{'invisible': [('fiscal_recorder','!=', 'gera_mgn707ts')]}">
+                          <tree editable="bottom">
+                              <field name="number"/>
+                              <field name="payment_id"/>
+                          </tree>
+                      </field>
+                </xpath>
+            </field>
+         </record>
+    </data>
+</odoo>

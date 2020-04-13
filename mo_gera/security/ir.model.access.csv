@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pos_config_user_fiscal_gera_tax,ukr.fiscal.recorder gera tax user,model_gera_fiscal_recorder_tax,point_of_sale.group_pos_user,1,1,0,0
+access_pos_config_manager_fiscal_gera_tax,ukr.fiscal.recorder gera tax manager,model_gera_fiscal_recorder_tax,point_of_sale.group_pos_manager,1,1,1,1
+access_pos_config_user_fiscal_gera_payment,ukr.fiscal.recorder gera payment user,model_gera_fiscal_recorder_payment,point_of_sale.group_pos_user,1,1,0,0
+access_pos_config_manager_fiscal_gera_payment,ukr.fiscal.recorder gera payment manager,model_gera_fiscal_recorder_payment,point_of_sale.group_pos_manager,1,1,1,1

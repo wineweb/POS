@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="GeraPopupWidget">
+        <div role="dialog" class="modal-dialog">
+            <div class="popup popup-confirm">
+                <header class="title"><t t-esc=" widget.options.title || 'Confirm ?' " /></header>
+                <main class="body"><t t-esc="  widget.options.body || '' "/></main>
+                <footer class="footer">
+                    <div class="button confirm">
+                        Validate
+                    </div>
+                    <div class="button cancel">
+                        Reprint
+                    </div>
+                    <div class="button close-popup">
+                        Close
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </t>
+</templates>
