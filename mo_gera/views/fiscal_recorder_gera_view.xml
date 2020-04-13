@@ -6,9 +6,6 @@
             <field name="model">ukr.fiscal.recorder</field>
             <field name="inherit_id" ref="mo_ukr_fiscal_recorder.ukr_fiscal_recorder_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//form/header" position="inside">
-                    <button name="upload_gera_settings" string="Upload Gera Settings" type="object" class="btn-primary" attrs="{'invisible': [('fiscal_recorder','!=', 'gera_mgn707ts')]}"/>
-                </xpath>
                 <xpath expr="//group[@id='settings']" position="inside">
                     <group attrs="{'invisible': [('fiscal_recorder','!=', 'gera_mgn707ts')]}">
                         <field name="gr_printer_ip" attrs="{'required': [('fiscal_recorder','=', 'gera_mgn707ts')]}"/>
