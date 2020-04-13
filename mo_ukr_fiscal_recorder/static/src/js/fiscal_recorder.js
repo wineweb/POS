@@ -37,7 +37,7 @@ models.Orderline = models.Orderline.extend({
         });
 
         var rounding = this.pos.currency.rounding
-        if(this.pos.config.fiscal_recorder){ //we need 3 digits after dot
+        if(this.pos.proxy.printer && this.pos.config.fiscal_recorder){ //we need 3 digits after dot
             rounding = 0.001
         }
 
@@ -71,7 +71,7 @@ models.Order = models.Order.extend({
           function round(number){
             return +number.toFixed(2);
         }
-        if(this.pos.config.fiscal_recorder){ //if fiscal recorder - round amount total and tax
+        if(this.pos.proxy.printer && this.pos.config.fiscal_recorder){ //if fiscal recorder - round amount total and tax
             return {
                 name: this.get_name(),
                 amount_paid: this.get_total_paid() - this.get_change(),
@@ -114,7 +114,7 @@ models.Order = models.Order.extend({
         function round(number){
             return +number.toFixed(2);
         }
-        if(this.pos.config.fiscal_recorder){
+        if(this.pos.proxy.printer && this.pos.config.fiscal_recorder){
             return this.orderlines.reduce((function(sum, orderLine) {
                 return sum + orderLine.get_price_without_tax();
             }),0)
@@ -126,7 +126,7 @@ models.Order = models.Order.extend({
     },
 
     get_total_tax: function() {
-         if(this.pos.config.fiscal_recorder){
+         if(this.pos.proxy.printer && this.pos.config.fiscal_recorder){
             return this.orderlines.reduce((function(sum, orderLine) {
                 return sum + orderLine.get_tax();
             }),0)
@@ -316,7 +316,7 @@ PaymentIOT.include({
 screens.ReceiptScreenWidget.include({
 
     print: function() {
-        if (this.pos.config.fiscal_recorder){
+        if (this.pos.proxy.printer && this.pos.config.fiscal_recorder){
             if (this.pos.config.fiscal_receipt_type == 'json'){
                 this.print_json();
             } else {
@@ -338,7 +338,7 @@ screens.ReceiptScreenWidget.include({
 
     // Check pos settings
     handle_auto_print: function() {
-        if (this.pos.config.fiscal_recorder){
+        if (this.pos.proxy.printer && this.pos.config.fiscal_recorder){
             if (this.pos.config.iface_print_auto && !this.pos.get_order().is_to_email() && this.pos.get_order()._printed) {
                 if (this.should_close_immediately()){
                     this.click_next();
@@ -398,7 +398,7 @@ screens.PaymentScreenWidget.include({
     on 'validate' button to avoid order validation if printer throws error
  */
     validate_order: function(force_validation) {
-        if (this.pos.config.fiscal_recorder){
+        if (this.pos.proxy.printer && this.pos.config.fiscal_recorder){
             if (this.order_is_valid(force_validation)){
                 var self = this
                 self._locked = true
@@ -425,9 +425,9 @@ gui.Gui.include({
     //'reprint receipt' screen
     show_screen: function(screen_name,params,refresh,skip_close_popup) {
         this._super(screen_name,params,refresh,skip_close_popup)
-        if(screen_name == 'receipt' && this.pos.config.fiscal_recorder){
+        if(screen_name == 'receipt' && this.pos.proxy.printer && this.pos.config.fiscal_recorder){
             self.$('.button.print').css({"pointer-events":"none","opacity":'0.5'});
-        } else if (screen_name == 'reprint_receipt' && this.pos.config.fiscal_recorder){
+        } else if (screen_name == 'reprint_receipt' && this.pos.proxy.printer && this.pos.config.fiscal_recorder){
             self.$('.button.print').css({"pointer-events":"visible","opacity":'initial'});
         }
     },

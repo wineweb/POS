@@ -159,7 +159,7 @@ screens.PaymentScreenWidget.include({
     on 'validate' button to avoid order validation if printer throws error
  */
     validate_order: function(force_validation) {
-        if (this.pos.config.fiscal_recorder && this.pos.proxy.printer.manufacturer == 'gera fiscal'){
+        if (this.pos.proxy.printer && this.pos.config.fiscal_recorder && this.pos.proxy.printer.manufacturer == 'gera fiscal'){
              var order = this.pos.get_order();
              var self = this
              if (this.order_is_valid(force_validation) && order._send_prn_err){
@@ -186,7 +186,7 @@ screens.PaymentScreenWidget.include({
 
     click_back: function(){
         this._super();
-        if (this.pos.config.fiscal_recorder && this.pos.proxy.printer.manufacturer == 'gera fiscal'){
+        if (this.pos.proxy.printer && this.pos.config.fiscal_recorder && this.pos.proxy.printer.manufacturer == 'gera fiscal'){
              var order = this.pos.get_order();
              if (order._send_prn_err){
                 order._send_prn_err = false;
@@ -200,7 +200,7 @@ chrome.SaleDetailsButton.include({
 
     print_sale_details: function () {
         var self = this;
-        if (self.pos.config.fiscal_recorder && self.pos.proxy.printer.manufacturer == 'gera fiscal'){
+        if (self.pos.proxy.printer && self.pos.config.fiscal_recorder && self.pos.proxy.printer.manufacturer == 'gera fiscal'){
              this.pos.proxy.printer.send_printing_job_report_gera('20')
                 .then(self.pos.proxy.printer._onIoTActionResult.bind(self.pos.proxy.printer))
                 .guardedCatch(self.pos.proxy.printer._onIoTActionFail.bind(self.pos.proxy.printer));
