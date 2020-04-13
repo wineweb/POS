@@ -7,6 +7,7 @@ import requests
 from odoo.exceptions import ValidationError
 import datetime
 from ..models import ukr_fiscal_recorder as fiscal
+import urllib3
 
 from odoo import api, fields, models, registry, SUPERUSER_ID, _
 
@@ -75,7 +76,9 @@ class PosConfig(models.Model):
             raise ValidationError('Can not print without proxy')
 
     def send_request(self, domain):
-        response = requests.get(url=domain)
+        pm = urllib3.PoolManager(cert_reqs='CERT_NONE')
+        response = pm.request('POST', domain)
+        # response = requests.get(url=domain)
         if response.status_code == 500:
             raise ValidationError(_('Print error.') + response.reason)
 
