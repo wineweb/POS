@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-         <record id="ukr_fiscal_recorder_tree" model="ir.ui.view">
+        <record id="ukr_fiscal_recorder_tree" model="ir.ui.view">
             <field name="name">Ukrainian Fiscal Recorder Tree</field>
             <field name="model">ukr.fiscal.recorder</field>
             <field name="arch" type="xml">
@@ -10,14 +10,16 @@
                     <field name="display_name"/>
                 </tree>
             </field>
-         </record>
+        </record>
 
-         <record id="ukr_fiscal_recorder_form" model="ir.ui.view">
+        <record id="ukr_fiscal_recorder_form" model="ir.ui.view">
             <field name="name">Ukrainian Fiscal Recorder Form</field>
             <field name="model">ukr.fiscal.recorder</field>
             <field name="arch" type="xml">
                 <form>
-                    <header/>
+                    <xpath expr="//form/header" position="inside">
+                        <button name="upload_settings" string="Upload Settings" type="object" class="btn-primary"/>
+                    </xpath>
                     <sheet>
                         <group>
                             <field name="display_name" readonly="1" invisible="1"/>
@@ -37,15 +39,16 @@
                     </sheet>
                 </form>
             </field>
-         </record>
+        </record>
 
-         <record model="ir.actions.act_window" id="ukr_fiscal_recorder_action_window">
+        <record model="ir.actions.act_window" id="ukr_fiscal_recorder_action_window">
             <field name="name">Ukrainian Fiscal Recorders</field>
             <field name="res_model">ukr.fiscal.recorder</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Ukrainian Fiscal Recorders" id="fiscal_recorder" parent="point_of_sale.menu_point_config_product"
+        <menuitem name="Ukrainian Fiscal Recorders" id="fiscal_recorder"
+                  parent="point_of_sale.menu_point_config_product"
                   groups="point_of_sale.group_pos_manager"
                   action="ukr_fiscal_recorder_action_window"
                   sequence="10"/>

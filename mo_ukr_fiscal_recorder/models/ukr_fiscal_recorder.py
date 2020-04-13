@@ -27,7 +27,8 @@ class UkrFiscalRecorder(models.Model):
     fiscal_recorder = fields.Selection([], string='Fiscal Recorder')
     fiscal_number = fields.Char('Fiscal Number')
     fiscal_serial = fields.Char('Fiscal Serial Number', required=True)
-    fiscal_receipt_type = fields.Selection([('json', 'JSON'), ('xml', 'XML')], default='json', string='Fiscal Receipt Type')
+    fiscal_receipt_type = fields.Selection([('json', 'JSON'), ('xml', 'XML')], default='json',
+                                           string='Fiscal Receipt Type')
     fiscal_settings_controller = fields.Char(string='Settings Controller Route')
     fiscal_receipt_controller = fields.Char(string='Receipt Controller Route')
 
@@ -63,3 +64,6 @@ class UkrFiscalRecorder(models.Model):
                 raise ValidationError(_('You need to provide name of receipt controller'))
         res = super(UkrFiscalRecorder, self).write(vals)
         return res
+
+    def upload_settings(self):
+        return

@@ -39,44 +39,7 @@ class PosConfig(models.Model):
         if (record.iface_printer_id and not record.iface_printer_id.printer_model) or not record.iface_printer_id:
             return
 
-        # recorder_settings = record.fiscal_recorder
-        recorder_settings = record.iface_printer_id.printer_model
-
-        controller_path = fiscal.settings_controller_path[recorder_settings.fiscal_recorder]
-        domain = self.make_domain(record.iface_printer_id.iot_ip, controller_path)
-
-        settings_fields = fiscal.settings_fields[recorder_settings.fiscal_recorder]
-        tax_vals = self.env[fiscal.tax_model[recorder_settings.fiscal_recorder]].get_model_taxes()
-        payment_vals = self.env[fiscal.payment_model[recorder_settings.fiscal_recorder]].get_model_payment()
-        receipt_controller = fiscal.receipt_controller_path.get(recorder_settings.fiscal_recorder, False)
-        if not receipt_controller:
-            raise ValidationError(_('You need receipt controller to print fiscal receipts'))
-
-        settings_dict = recorder_settings.read(settings_fields)[0]  # get values from settings fields
-        settings_dict['taxes'] = tax_vals
-        settings_dict['payments'] = payment_vals
-        settings_dict['receipt_controller'] = receipt_controller
-        settings_dict['fiscal_serial'] = recorder_settings.fiscal_serial
-
-        data = {
-            'params': settings_dict
-        }
-
-        send_data = json.dumps(data)
-        try:
-            headers = {'Content-Type': 'application/json'}
-            # send settings
-            response = requests.post(url=domain, data=send_data, headers=headers, timeout=6.0)
-        except Exception as error:
-            _logger.error(error)
-            raise ValidationError(error)
-        if response.status_code == 200:
-            response_json = json.loads(response.text)
-            if response_json.get('result', False):
-                raise ValidationError(response_json['result'])
-        else:
-            _logger.error(response.text)
-            raise ValidationError(response.text)
+        record.iface_printer_id.printer_mode.upload_settings()
 
     def write(self, vals):
         res = super(PosConfig, self).write(vals)
