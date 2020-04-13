@@ -227,7 +227,7 @@ msgstr ""
 
 #. module: mo_gera
 #: model_terms:ir.ui.view,arch_db:mo_gera.view_fiscal_recorder_gera
-msgid "Reload Gera Settings"
+msgid "Upload Gera Settings"
 msgstr ""
 
 #. module: mo_gera

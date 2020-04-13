@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 import logging
 import psycopg2
+import tempfile
+import os
 import json
+import io
+import shutil
+import stat
 import requests
 from odoo.exceptions import ValidationError, UserError
 from odoo import api, fields, models, registry, SUPERUSER_ID, _
@@ -149,41 +154,88 @@ class FiscalRecorderGeraMGN707TS(models.Model):
         for config in pos_config:
             self.env['pos.config'].upload_settings(config)
 
-    def upload_gera_settings(self, ip):
-        recorder_settings = self
+    def upload_gera_settings(self):
+        path = os.path.dirname(os.path.dirname(__file__)) + '/printer_settings'
+        if not os.path.exists(path):
+            os.makedirs(path)
 
-        controller_path = fiscal.settings_controller_path[recorder_settings.fiscal_recorder]
-        domain = self.env['pos.config'].make_domain(ip, controller_path)
+        full_name_path = path + '/' + self.fiscal_serial + '_settings.json'
 
-        settings_fields = fiscal.settings_fields[recorder_settings.fiscal_recorder]
-        tax_vals = self.env[fiscal.tax_model[recorder_settings.fiscal_recorder]].get_model_taxes()
-        payment_vals = self.env[fiscal.payment_model[recorder_settings.fiscal_recorder]].get_model_payment()
-        receipt_controller = fiscal.receipt_controller_path.get(recorder_settings.fiscal_recorder, False)
-        if not receipt_controller:
-            raise ValidationError(_('You need receipt controller to print fiscal receipts'))
+        file_exists = os.path.isfile(full_name_path)
 
-        settings_dict = recorder_settings.read(settings_fields)[0]  # get values from settings fields
-        settings_dict['taxes'] = tax_vals
-        settings_dict['payments'] = payment_vals
-        settings_dict['receipt_controller'] = receipt_controller
-        settings_dict['fiscal_serial'] = recorder_settings.fiscal_serial
+        file_settings = tempfile.NamedTemporaryFile(delete=False)
+        file_settings.close()
+        res = {}
+        res.update({
+            'gr_cashier_id': self.gr_cashier_id,
+            'gr_cashier_password': self.gr_cashier_password,
+            'gr_printer_ip': self.gr_printer_ip,
+            'receipt_controller': fiscal.receipt_controller_path[_key],
+            'id': self.id
+        })
+        taxes = {}
+        for tax in self.gr_fiscal_tax_ids:
+            taxes.update({
+                tax.number: {
+                    'ids': tax.tax_ids.ids if tax.tax_ids else [],
+                }
+            })
+        res['taxes'] = taxes
 
-        data = {
-            'params': settings_dict
-        }
+        payments = {}
+        for payment in self.gr_fiscal_payment_ids:
+            payments.update({
+                payment.number: payment.payment_id.id
+            })
+        res['payments'] = payments
 
-        send_data = json.dumps(data)
-        try:
-            headers = {'Content-Type': 'application/json'}
-            # send settings
-            response = requests.post(url=domain, data=send_data, headers=headers, timeout=6.0)
-        except Exception as error:
-            _logger.error(error)
-            raise ValidationError(error)
-        if response.status_code == 200:
-            response_json = json.loads(response.text)
-            if response_json.get('result', False):
-                raise ValidationError(response_json['result'])
+        if not file_exists:
+            with io.open(file_settings.name, "w") as file:
+                json.dump(res, file, indent=4, sort_keys=True)
+            try:
+                shutil.move(file_settings.name, full_name_path)
+            except Exception as e:
+                os.chmod(file_settings.name, stat.S_IREAD | stat.S_IWRITE | stat.S_IRUSR | stat.S_IWUSR
+                         | stat.S_IRGRP | stat.S_IWGRP | stat.S_IROTH | stat.S_IWOTH)
+                os.system("mv %s %s" % (file_settings.name, full_name_path))
         else:
-            _logger.error(response.text)
-            raise ValidationError(response.text)
+            with io.open(full_name_path, 'w') as file_current:
+                json.dump(res, file_current, indent=4, sort_keys=True)
+
+        # recorder_settings = self
+        #
+        # controller_path = fiscal.settings_controller_path[recorder_settings.fiscal_recorder]
+        # domain = self.env['pos.config'].make_domain(ip, controller_path)
+        #
+        # settings_fields = fiscal.settings_fields[recorder_settings.fiscal_recorder]
+        # tax_vals = self.env[fiscal.tax_model[recorder_settings.fiscal_recorder]].get_model_taxes()
+        # payment_vals = self.env[fiscal.payment_model[recorder_settings.fiscal_recorder]].get_model_payment()
+        # receipt_controller = fiscal.receipt_controller_path.get(recorder_settings.fiscal_recorder, False)
+        # if not receipt_controller:
+        #     raise ValidationError(_('You need receipt controller to print fiscal receipts'))
+        #
+        # settings_dict = recorder_settings.read(settings_fields)[0]  # get values from settings fields
+        # settings_dict['taxes'] = tax_vals
+        # settings_dict['payments'] = payment_vals
+        # settings_dict['receipt_controller'] = receipt_controller
+        # settings_dict['fiscal_serial'] = recorder_settings.fiscal_serial
+        #
+        # data = {
+        #     'params': settings_dict
+        # }
+        #
+        # send_data = json.dumps(data)
+        # try:
+        #     headers = {'Content-Type': 'application/json'}
+        #     # send settings
+        #     response = requests.post(url=domain, data=send_data, headers=headers, timeout=6.0)
+        # except Exception as error:
+        #     _logger.error(error)
+        #     raise ValidationError(error)
+        # if response.status_code == 200:
+        #     response_json = json.loads(response.text)
+        #     if response_json.get('result', False):
+        #         raise ValidationError(response_json['result'])
+        # else:
+        #     _logger.error(response.text)
+        #     raise ValidationError(response.text)

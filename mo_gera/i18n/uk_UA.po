@@ -227,8 +227,8 @@ msgstr "Чек надруковано?"
 
 #. module: mo_gera
 #: model_terms:ir.ui.view,arch_db:mo_gera.view_fiscal_recorder_gera
-msgid "Reload Gera Settings"
-msgstr "Перезавантажити налаштування"
+msgid "Upload Gera Settings"
+msgstr "Вивантаження налаштування"
 
 #. module: mo_gera
 #. openerp-web
