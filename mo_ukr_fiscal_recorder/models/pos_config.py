@@ -39,7 +39,7 @@ class PosConfig(models.Model):
         if (record.iface_printer_id and not record.iface_printer_id.printer_model) or not record.iface_printer_id:
             return
 
-        record.iface_printer_id.printer_mode.upload_settings()
+        record.iface_printer_id.printer_model.upload_settings()
 
     def write(self, vals):
         res = super(PosConfig, self).write(vals)
