@@ -24,6 +24,12 @@ class PosConfig(models.Model):
                                              string="Fiscal Settings Controller Route", reqdonly=True)
     fiscal_receipt_controller = fields.Char(related='fiscal_recorder.fiscal_receipt_controller',
                                             string="Fiscal Receipt Controller Route", reqdonly=True)
+    box_with_fiscal = fields.Char(compute='_compute_boxes')
+    box_fiscal_ip = fields.Char(compute='_compute_boxes')
+
+    def _compute_boxes(self):
+        self.box_with_fiscal = False
+        self.box_fiscal_ip = False
 
     @api.depends('iface_printer_id')
     def get_fiscal_recorder(self):
@@ -85,20 +91,17 @@ class PosConfig(models.Model):
     """Function which send request to print Z-Report"""
 
     def print_z_report(self):
-        domain = self.make_report_path('Z-Report')
-        self.send_request(domain)
+       return
 
     """Function which send request to print X-Report"""
 
     def print_x_report(self):
-        domain = self.make_report_path('X-Report')
-        self.send_request(domain)
+        return
 
     """Function which send request to print Product X-Report"""
 
     def print_product_x_report(self):
-        domain = self.make_report_path('Product X-Report')
-        self.send_request(domain)
+        return
 
 
 class PosSession(models.Model):
@@ -111,6 +114,13 @@ class PosSession(models.Model):
             self.show_reports = True
         else:
             self.show_reports = False
+
+    box_with_fiscal = fields.Char(compute='_compute_boxes')
+    box_fiscal_ip = fields.Char(compute='_compute_boxes')
+
+    def _compute_boxes(self):
+        self.box_with_fiscal = False
+        self.box_fiscal_ip = False
 
     """Functions which call report functions from config"""
 

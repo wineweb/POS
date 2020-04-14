@@ -6,7 +6,7 @@ import json
 import requests
 from odoo.exceptions import ValidationError
 import datetime
-from .gera_mgn707ts import fiscal
+from .gera_mgn707ts import _key
 
 from odoo import api, fields, models, registry, SUPERUSER_ID, _
 
@@ -15,6 +15,24 @@ _logger = logging.getLogger(__name__)
 
 class PosConfig(models.Model):
     _inherit = 'pos.config'
+
+    def _compute_boxes(self):
+        box_dict = {}
+        for config in self:
+            if config.fiscal_recorder.fiscal_recorder != _key:
+                super(PosConfig, self)._compute_boxes()
+                continue
+            if config.fiscal_recorder and config.iface_printer_id:
+                box = config.iface_printer_id.iot_id.ip
+                box_dict[box] = (
+                    [config.iface_printer_id.identifier, config.iface_printer_id.manufacturer,
+                     'print_report', self.env.user.gera_user_id,
+                     self.env.user.gera_user_password])
+                config.box_with_fiscal = json.dumps(box_dict)
+                config.box_fiscal_ip = config.iface_printer_id.iot_id.ip
+            else:
+                config.box_with_fiscal = False
+                config.box_fiscal_ip = False
 
     def make_report_path(self, report_type):
         domain = super(PosConfig, self).make_report_path(report_type)
@@ -38,29 +56,32 @@ class PosConfig(models.Model):
         else:
             super(PosConfig, self).send_request(domain)
 
-    """Function which send request to print X-Report"""
-
-    def print_x_report(self):
-        if self.iface_printer_id and self.fiscal_recorder and self.iface_printer_id.manufacturer == 'gera fiscal':
-            domain = self.make_report_path('X-Report')
-            self.send_request(domain)
-        else:
-            super(PosConfig, self).print_x_report()
-
-    """Function which send request to print Z-Report"""
-
-    def print_z_report(self):
-        if self.iface_printer_id and self.fiscal_recorder and self.iface_printer_id.manufacturer == 'gera fiscal':
-            domain = self.make_report_path('Z-Report')
-            self.send_request(domain)
-        else:
-            super(PosConfig, self).print_z_report()
-
-    """Function which send request to print Product X-Report"""
-
-    def print_product_x_report(self):
-        if self.iface_printer_id and self.fiscal_recorder and self.iface_printer_id.manufacturer == 'gera fiscal':
-            domain = self.make_report_path('Product X-Report')
-            self.send_request(domain)
-        else:
-            super(PosConfig, self).print_product_x_report()
+    # """Function which send request to print X-Report"""
+    #
+    # def print_x_report(self):
+    #     pass
+    #     if self.iface_printer_id and self.fiscal_recorder and self.iface_printer_id.manufacturer == 'gera fiscal':
+    #         domain = self.make_report_path('X-Report')
+    #         self.send_request(domain)
+    #     else:
+    #         super(PosConfig, self).print_x_report()
+    #
+    # """Function which send request to print Z-Report"""
+    #
+    # def print_z_report(self):
+    #     pass
+    #     if self.iface_printer_id and self.fiscal_recorder and self.iface_printer_id.manufacturer == 'gera fiscal':
+    #         domain = self.make_report_path('Z-Report')
+    #         self.send_request(domain)
+    #     else:
+    #         super(PosConfig, self).print_z_report()
+    #
+    # """Function which send request to print Product X-Report"""
+    #
+    # def print_product_x_report(self):
+    #     pass
+    #     if self.iface_printer_id and self.fiscal_recorder and self.iface_printer_id.manufacturer == 'gera fiscal':
+    #         domain = self.make_report_path('Product X-Report')
+    #         self.send_request(domain)
+    #     else:
+    #         super(PosConfig, self).print_product_x_report()

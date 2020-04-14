@@ -6,5 +6,11 @@
                 <script type="text/javascript" src="/mo_ukr_fiscal_recorder/static/src/js/fiscal_recorder.js"></script>
             </xpath>
         </template>
+        <template id="assets_backend" inherit_id="web.assets_backend" name="Fiscal IoT assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/mo_ukr_fiscal_recorder/static/src/js/fiscal_form.js"></script>
+                <script type="text/javascript" src="/mo_ukr_fiscal_recorder/static/src/js/fiscal_kanban.js"></script>
+            </xpath>
+        </template>
     </data>
 </odoo>

@@ -13,6 +13,25 @@ _logger = logging.getLogger(__name__)
 class PosSession(models.Model):
     _inherit = 'pos.session'
 
+    def _compute_boxes(self):
+        box_dict = {}
+        for session in self:
+            if session.config_id.fiscal_recorder.fiscal_recorder != _key:
+                super(PosSession, self)._compute_boxes()
+                continue
+            if session.config_id.fiscal_recorder and session.config_id.iface_printer_id:
+                box = session.config_id.iface_printer_id.iot_id.ip
+                box_dict.setdefault(box, [])
+                box_dict[box] = (
+                    [session.config_id.iface_printer_id.identifier, session.config_id.iface_printer_id.manufacturer,
+                     'print_report', self.env.user.gera_user_id,
+                     self.env.user.gera_user_password])
+                session.box_with_fiscal = json.dumps(box_dict)
+                session.box_fiscal_ip = session.config_id.iface_printer_id.iot_id.ip
+            else:
+                session.box_with_fiscal = False
+                session.box_fiscal_ip = False
+
     def money_in_out(self, amount, proc_tye, comment):
         if not self.config_id.fiscal_recorder.fiscal_recorder or self.config_id.fiscal_recorder.fiscal_recorder != _key:
             return

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<template xml:space="preserve">
+
+        <t t-extend="FormView.buttons">
+            <t t-jquery="button.o_form_button_edit" t-operation="after">
+                <button t-if="widget.modelName == 'pos.session'" type="button"
+                        class="btn btn-primary oe_filter_button o_fiscal_report z_report" accesskey="f">
+                    Print Z-Report
+                </button>
+                <button t-if="widget.modelName == 'pos.session'" type="button"
+                        class="btn btn-primary oe_filter_button o_fiscal_report x_report" accesskey="f">
+                    Print X-Report
+                </button>
+                <button t-if="widget.modelName == 'pos.session'" type="button"
+                        class="btn btn-primary oe_filter_button o_fiscal_report x_product" accesskey="f">
+                    Print Product X-Report
+                </button>
+            </t>
+            <t t-jquery="button.o_form_button_cancel" t-operation="after">
+                <button t-if="widget.modelName == 'pos.session'" type="button"
+                        class="btn btn-primary oe_filter_button o_fiscal_report z_report" accesskey="f">
+                    Print Z-Report
+                </button>
+                <button t-if="widget.modelName == 'pos.session'" type="button"
+                        class="btn btn-primary oe_filter_button o_fiscal_report x_report" accesskey="f">
+                    Print X-Report
+                </button>
+                <button t-if="widget.modelName == 'pos.session'" type="button"
+                        class="btn btn-primary oe_filter_button o_fiscal_report x_product" accesskey="f">
+                    Print Product X-Report
+                </button>
+            </t>
+        </t>
+
+</template>

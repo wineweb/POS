@@ -94,7 +94,8 @@ class FiscalRecorderGeraMGN707TS(models.Model):
     @api.constrains('fiscal_recorder', 'fiscal_serial')
     def check_serial(self):
         if self.fiscal_recorder == _key:
-            exist = self.search([('fiscal_recorder', '=', self.fiscal_recorder), ('fiscal_serial', '=', self.fiscal_serial)])
+            exist = self.search(
+                [('fiscal_recorder', '=', self.fiscal_recorder), ('fiscal_serial', '=', self.fiscal_serial)])
             if exist:
                 raise UserError(_('You Can not create fiscal recorder with same serial number!'))
 
@@ -107,52 +108,15 @@ class FiscalRecorderGeraMGN707TS(models.Model):
     def write(self, vals):
         res = super(FiscalRecorderGeraMGN707TS, self).write(vals)
         for record in self:
-            if any((field in vals.keys() for field in fiscal.settings_fields[_key])) or vals.get('gr_fiscal_tax_ids', False) or vals.get('gr_fiscal_tax_ids', False):
+            if any((field in vals.keys() for field in fiscal.settings_fields[_key])) or vals.get('gr_fiscal_tax_ids',
+                                                                                                 False) or vals.get(
+                    'gr_fiscal_payment_ids', False):
                 pos_config = self.env['pos.config'].search([('fiscal_recorder', '=', record.id)])
-                if not pos_config:
-                    iot_boxes = self.env['iot.box'].search([])
-                    if iot_boxes:
-                        view_id = self.env.ref('mo_gera.view_upload_iot_box_gera').id
-                        return {
-                            'name': _("Choose IoT Box"),
-                            'view_mode': 'form',
-                            'view_id': view_id,
-                            'view_type': 'form',
-                            'res_model': 'upload.iot.box.gera',
-                            'type': 'ir.actions.act_window',
-                            'views': [(view_id, 'form')],
-                            'target': 'new',
-                        }
-                    continue
                 for pos in pos_config:
                     if pos.mapped('session_ids').filtered(lambda s: s.state != 'closed'):
                         raise ValidationError(_('You should close all active POS sessions before make changes'))
-                    self.env['pos.config'].upload_settings(pos_config)
+                record.upload_settings()
         return res
-
-    def reload_gera_settings(self):
-        pos_config = self.env['pos.config'].search([('fiscal_recorder', '=', self.id)])
-        if pos_config.mapped('session_ids').filtered(lambda s: s.state != 'closed'):
-            raise ValidationError(_('You should close all active POS sessions before make changes'))
-
-        if not pos_config:
-            iot_boxes = self.env['iot.box'].search([])
-            if iot_boxes:
-                view_id = self.env.ref('mo_gera.view_upload_iot_box_gera').id
-                return {
-                    'name': _("Choose IoT Box"),
-                    'view_mode': 'form',
-                    'view_id': view_id,
-                    'view_type': 'form',
-                    'res_model': 'upload.iot.box.gera',
-                    'type': 'ir.actions.act_window',
-                    'views': [(view_id, 'form')],
-                    'target': 'new',
-                }
-            return
-
-        for config in pos_config:
-            self.env['pos.config'].upload_settings(config)
 
     def upload_settings(self):
         if _key != self.fiscal_recorder:

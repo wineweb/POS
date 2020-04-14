@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//notebook/page[last()]" position="after">
-                    <page name="gera_mg707ts" string="Gera MG 707TS">
+                    <page name="gera_mg707ts" string="Gera MG N707TS">
                         <group>
                             <field name="gera_user_id"/>
                             <field name="gera_user_password" password="True"/>

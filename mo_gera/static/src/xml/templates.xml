@@ -6,5 +6,11 @@
                 <script type="text/javascript" src="/mo_gera/static/src/js/gera.js"></script>
             </xpath>
         </template>
+        <template id="assets_backend" inherit_id="web.assets_backend" name="Gera IoT assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/mo_gera/static/src/js/gera_fiscal_form.js"></script>
+                <script type="text/javascript" src="/mo_gera/static/src/js/gera_fiscal_kanban.js"></script>
+            </xpath>
+        </template>
     </data>
 </odoo>

@@ -2,7 +2,7 @@
 
 {
     'name': 'Ukrainian Fiscal Recorders',
-    'version': '1.1.2',
+    'version': '1.1.1',
     'category': 'Point of Sale',
     'sequence': 6,
     'summary': 'Module to manage fiscal recorders in Point of Sale',
@@ -23,7 +23,7 @@
         'static/src/xml/templates.xml',
         'security/ir.model.access.csv'
     ],
-
+    'qweb':['static/src/xml/fiscal.xml'],
     'installable': True,
     'application': True
 }

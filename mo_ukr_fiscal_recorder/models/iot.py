@@ -14,13 +14,21 @@ class IotDevice(models.Model):
     @api.onchange('printer_model')
     def change_printer(self):
         for device in self:
+            configs = self.env['pos.config'].search([('iface_printer_id', 'in', device.ids)])
             if device.printer_model:
-                configs = self.env['pos.config'].search([('fiscal_recorder', 'in', device.printer_model.ids)])
                 if configs:
                     if configs.mapped('session_ids').filtered(lambda s: s.state != 'closed'):
                         raise ValidationError(_('You should close all active POS sessions before make changes'))
+                    configs.write({
+                        'fiscal_recorder': device.printer_model.id
+                    })
                     for config in configs:
                         config.upload_settings(config)
+            else:
+                if configs:
+                    configs.write({
+                        'fiscal_recorder': False
+                    })
 
     def unlink(self):
         for device in self:
@@ -32,3 +40,11 @@ class IotDevice(models.Model):
                     configs.write({
                         'fiscal_recorder': False
                     })
+            else:
+                configs = self.env['pos.config'].search([('iface_printer_id', 'in', device.ids)])
+                if configs:
+                    configs.write({
+                        'fiscal_recorder': False
+                    })
+        res = super(IotDevice, self).unlink()
+        return res

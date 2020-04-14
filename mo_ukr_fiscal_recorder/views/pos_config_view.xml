@@ -31,15 +31,17 @@
                          attrs="{'invisible': [('fiscal_recorder','=', False)]}">
                         <div role="menuitem" class="o_kanban_card_manage_title">
                             <span>Fiscal Reports</span>
+                            <field name="box_with_fiscal" invisible="1"/>
+                            <field name="box_fiscal_ip" invisible="1"/>
                         </div>
                         <div role="menuitem">
-                            <a name="print_z_report" type="object">Print Z-Report</a>
+                            <a name="print_z_report"  type="object" id="z-report">Print Z-Report</a>
                         </div>
                         <div role="menuitem">
-                            <a name="print_x_report" type="object">Print X-Report</a>
+                            <a name="print_x_report" type="object" id="x-report">Print X-Report</a>
                         </div>
                         <div role="menuitem">
-                            <a name="print_product_x_report" type="object">Print Product X-Report</a>
+                            <a name="print_product_x_report" type="object" id="product-x-report">Print Product X-Report</a>
                         </div>
                     </div>
                 </xpath>
@@ -52,8 +54,11 @@
             <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//header" position="inside">
-                    <button name="print_z_report" type="object" string="Print Z-Report"
-                            class="oe_highlight" attrs="{'invisible': [('show_reports','=', False)]}"/>
+                    <!--                    <button name="print_z_report" type="object" string="Print Z-Report"-->
+                    <!--                            class="oe_highlight" attrs="{'invisible': [('show_reports','=', False)]}"/>-->
+                    <button type="button" string="Print Z-Report"
+                            class="oe_highlight o_pedal_status_button"
+                            attrs="{'invisible': [('show_reports','=', False)]}"/>
                     <button name="print_x_report" type="object" string="Print X-Report"
                             class="oe_highlight" attrs="{'invisible': [('show_reports','=', False)]}"/>
                     <button name="print_product_x_report" type="object" string="Print Product X-Report"
@@ -62,6 +67,8 @@
                 </xpath>
                 <field name="config_id" position="after">
                     <field name="show_reports" invisible="1"/>
+                    <field name="box_with_fiscal" invisible="1"/>
+                    <field name="box_fiscal_ip" invisible="1"/>
                 </field>
             </field>
         </record>

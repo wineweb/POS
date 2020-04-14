@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-10 14:25+0000\n"
-"PO-Revision-Date: 2020-04-10 14:25+0000\n"
+"POT-Creation-Date: 2020-04-14 07:14+0000\n"
+"PO-Revision-Date: 2020-04-14 07:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr "Серійний номер"
 #. module: mo_ukr_fiscal_recorder
 #: model:ir.model.fields,field_description:mo_ukr_fiscal_recorder.field_pos_config__fiscal_settings_controller
 msgid "Fiscal Settings Controller Route"
-msgstr "Шлях до контролеру налаштувань"
+msgstr "Шлях до контроеру налаштувань"
 
 #. module: mo_ukr_fiscal_recorder
 #. openerp-web
@@ -198,7 +198,7 @@ msgstr "Помилка друку."
 #. module: mo_ukr_fiscal_recorder
 #: model:ir.model.fields,field_description:mo_ukr_fiscal_recorder.field_ukr_fiscal_recorder__fiscal_receipt_controller
 msgid "Receipt Controller Route"
-msgstr "Шлях до контролеру чека"
+msgstr "Шлях до контроллеру чека"
 
 #. module: mo_ukr_fiscal_recorder
 #: model_terms:ir.ui.view,arch_db:mo_ukr_fiscal_recorder.ukr_fiscal_recorder_form
@@ -243,15 +243,14 @@ msgid "Ukrainian Fiscal Registers"
 msgstr "Українські фіскальні реєстратори"
 
 #. module: mo_ukr_fiscal_recorder
+#: model_terms:ir.ui.view,arch_db:mo_ukr_fiscal_recorder.ukr_fiscal_recorder_form
+msgid "Upload Settings"
+msgstr "Вивантаження налаштувань"
+
+#. module: mo_ukr_fiscal_recorder
 #: model:ir.model.fields.selection,name:mo_ukr_fiscal_recorder.selection__ukr_fiscal_recorder__fiscal_receipt_type__xml
 msgid "XML"
 msgstr ""
-
-#. module: mo_ukr_fiscal_recorder
-#: code:addons/mo_ukr_fiscal_recorder/models/pos_config.py:0
-#, python-format
-msgid "You need receipt controller to print fiscal receipts"
-msgstr "Вам потрібен шлях до контролеру друку чеків"
 
 #. module: mo_ukr_fiscal_recorder
 #: code:addons/mo_ukr_fiscal_recorder/models/ukr_fiscal_recorder.py:0
@@ -260,6 +259,7 @@ msgid "You need to provide name of receipt controller"
 msgstr "Вам потрібно зазначити шлях до контролера друку чеків"
 
 #. module: mo_ukr_fiscal_recorder
+#: code:addons/mo_ukr_fiscal_recorder/models/iot.py:0
 #: code:addons/mo_ukr_fiscal_recorder/models/iot.py:0
 #: code:addons/mo_ukr_fiscal_recorder/models/pos_config.py:0
 #, python-format
