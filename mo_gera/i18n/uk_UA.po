@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-14 15:38+0000\n"
-"PO-Revision-Date: 2020-04-14 15:38+0000\n"
+"POT-Creation-Date: 2020-04-15 07:47+0000\n"
+"PO-Revision-Date: 2020-04-15 07:47+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,8 @@ msgstr "Винкла помилка під час друку чеку."
 #. openerp-web
 #: code:addons/mo_gera/static/src/js/gera_fiscal_form.js:0
 #: code:addons/mo_gera/static/src/js/gera_fiscal_form.js:0
+#: code:addons/mo_gera/static/src/js/gera_fiscal_form.js:0
+#: code:addons/mo_gera/static/src/js/gera_fiscal_kanban.js:0
 #: code:addons/mo_gera/static/src/js/gera_fiscal_kanban.js:0
 #, python-format
 msgid "An error occurred during printing receipt. "
@@ -53,11 +55,6 @@ msgid "Cannot load ukrainian fiscal recorder module"
 msgstr "Неможливао завантажити модуль управління фіскальними реєстраторами"
 
 #. module: mo_gera
-#: model:ir.model,name:mo_gera.model_cash_box_out
-msgid "Cash Box Out"
-msgstr "Гроші з каси"
-
-#. module: mo_gera
 #: model:ir.model.fields,field_description:mo_gera.field_ukr_fiscal_recorder__gr_cashier_id
 msgid "Cashier ID"
 msgstr "ID касира"
@@ -72,7 +69,7 @@ msgstr "Пароль касира"
 #: code:addons/mo_gera/static/src/js/gera.js:0
 #, python-format
 msgid "Check if receipt printed press 'Validate' button."
-msgstr "Перевірте, якщо чек надрукувався натисніть кнопку 'Підтвердити'. "
+msgstr "Перевірте, якщо чек надрукувався, то натисніть кнопку 'Підтвердити'. "
 
 #. module: mo_gera
 #. openerp-web
@@ -110,6 +107,8 @@ msgstr "Назва для відображення"
 #: code:addons/mo_gera/static/src/js/gera_fiscal_form.js:0
 #: code:addons/mo_gera/static/src/js/gera_fiscal_form.js:0
 #: code:addons/mo_gera/static/src/js/gera_fiscal_form.js:0
+#: code:addons/mo_gera/static/src/js/gera_fiscal_form.js:0
+#: code:addons/mo_gera/static/src/js/gera_fiscal_kanban.js:0
 #: code:addons/mo_gera/static/src/js/gera_fiscal_kanban.js:0
 #: code:addons/mo_gera/static/src/js/gera_fiscal_kanban.js:0
 #, python-format
@@ -263,22 +262,6 @@ msgstr "Помилка чеку"
 #: model:ir.model,name:mo_gera.model_ukr_fiscal_recorder
 msgid "Ukrainian Fiscal Registers"
 msgstr "Українські фіскальні реєстратори"
-
-#. module: mo_gera
-#: model_terms:ir.ui.view,arch_db:mo_gera.view_upload_iot_box_gera
-msgid "Upload"
-msgstr "Завантажити"
-
-#. module: mo_gera
-#: model:ir.model,name:mo_gera.model_upload_iot_box_gera
-msgid "Upload Gera Settings to IoT Box wizard"
-msgstr "Завантажити налаштування Gera до IoT Box"
-
-#. module: mo_gera
-#: model:ir.actions.act_window,name:mo_gera.action_upload_iot_box_gera
-#: model_terms:ir.ui.view,arch_db:mo_gera.view_upload_iot_box_gera
-msgid "Upload Settings to IoT Box"
-msgstr "Завантажити налаштування до IoT Box"
 
 #. module: mo_gera
 #: model:ir.model,name:mo_gera.model_res_users
