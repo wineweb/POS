@@ -34,7 +34,7 @@ FormController.include({
                         var proc_type = self.model.get(self.handle).data.amount > 0 ? 'in' : 'out';
                         self.process_gera_io(boxes, proc_type, Math.abs(self.model.get(self.handle).data.amount), comment)
                         .then(function (res) {
-                               if ((res.result && !res.error) || (!res.result)){
+                               if (res.result != true && res.result != false && !res.error){
                                    var error =  res.error
                                    if (!res.result && res.error) {
                                         self.do_warn(_t("Error"), _t("An error occurred during printing receipt. ") + res.result);
