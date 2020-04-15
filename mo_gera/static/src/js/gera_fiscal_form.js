@@ -133,14 +133,16 @@ FormController.include({
                 '',
                 ''
             ).then(function (res) {
-               if ((!res.result && res.error.message) || (!res.result && !res.error)){
-                   var error =  res.error
-                   if (!res.result && res.error) {
-                        self.do_warn(_t("Error"), _t("An error occurred during printing receipt. " + error.data.message));
-                   } else {
-                        self.do_warn(_t("Error"), _t("An error occurred during printing receipt."));
-                   }
-               }
+               if (res.result != true && res.result != false && !res.error){
+                    var error =  res.error
+                    if (!res.result && res.error) {
+                         self.do_warn(_t("Error"), _t("An error occurred during printing receipt. ") + res.result);
+                    } else if (!res.result && !error){
+                         self.do_warn(_t("Error"), _t("An error occurred during printing receipt."));
+                    } else {
+                         self.do_warn(_t("Error"), _t("An error occurred during printing receipt. ") + error.data.message);
+                    }
+                }
             });
         }
      }
