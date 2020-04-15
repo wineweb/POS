@@ -17,14 +17,6 @@ KanbanController.include({
                     if (item_data.box_with_fiscal) {
                         self.triggers = JSON.parse(item_data.box_with_fiscal);
                         self.box_fiscal_ip = item_data.box_fiscal_ip;
-                        var boxes = self.triggers;
-//                        for (var box in boxes) {
-//                            var devices = [];
-//                            for (var device in boxes[box]) {
-//                                devices.push(boxes[box][device][0]);
-//                            }
-            //                self.call('iot_longpolling', 'addListener', box, devices, self._onValueChange.bind(self));
-//                        }
                     }
                 }
             }

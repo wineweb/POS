@@ -19,7 +19,6 @@
     'data': [
         'views/fiscal_recorder_gera_view.xml',
         'views/res_users_views.xml',
-        'wizard/iot_wizard.xml',
         'static/src/xml/templates.xml',
         'security/ir.model.access.csv'
     ],

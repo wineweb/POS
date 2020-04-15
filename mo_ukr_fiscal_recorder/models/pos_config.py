@@ -8,6 +8,7 @@ from odoo.exceptions import ValidationError
 import datetime
 from ..models import ukr_fiscal_recorder as fiscal
 import urllib3
+from odoo.addons.point_of_sale.wizard.pos_box import PosBox
 
 from odoo import api, fields, models, registry, SUPERUSER_ID, _
 
@@ -121,14 +122,3 @@ class PosSession(models.Model):
     def _compute_boxes(self):
         self.box_with_fiscal = False
         self.box_fiscal_ip = False
-
-    """Functions which call report functions from config"""
-
-    def print_z_report(self):
-        self.config_id.print_z_report()
-
-    def print_x_report(self):
-        self.config_id.print_x_report()
-
-    def print_product_x_report(self):
-        self.config_id.print_product_x_report()

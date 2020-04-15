@@ -56,32 +56,3 @@ class PosConfig(models.Model):
         else:
             super(PosConfig, self).send_request(domain)
 
-    # """Function which send request to print X-Report"""
-    #
-    # def print_x_report(self):
-    #     pass
-    #     if self.iface_printer_id and self.fiscal_recorder and self.iface_printer_id.manufacturer == 'gera fiscal':
-    #         domain = self.make_report_path('X-Report')
-    #         self.send_request(domain)
-    #     else:
-    #         super(PosConfig, self).print_x_report()
-    #
-    # """Function which send request to print Z-Report"""
-    #
-    # def print_z_report(self):
-    #     pass
-    #     if self.iface_printer_id and self.fiscal_recorder and self.iface_printer_id.manufacturer == 'gera fiscal':
-    #         domain = self.make_report_path('Z-Report')
-    #         self.send_request(domain)
-    #     else:
-    #         super(PosConfig, self).print_z_report()
-    #
-    # """Function which send request to print Product X-Report"""
-    #
-    # def print_product_x_report(self):
-    #     pass
-    #     if self.iface_printer_id and self.fiscal_recorder and self.iface_printer_id.manufacturer == 'gera fiscal':
-    #         domain = self.make_report_path('Product X-Report')
-    #         self.send_request(domain)
-    #     else:
-    #         super(PosConfig, self).print_product_x_report()

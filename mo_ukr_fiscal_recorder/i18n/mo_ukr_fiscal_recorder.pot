@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-14 07:15+0000\n"
-"PO-Revision-Date: 2020-04-14 07:15+0000\n"
+"POT-Creation-Date: 2020-04-14 15:43+0000\n"
+"PO-Revision-Date: 2020-04-14 15:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,9 +26,26 @@ msgid "<span>Fiscal Reports</span>"
 msgstr ""
 
 #. module: mo_ukr_fiscal_recorder
+#: model:ir.model.fields,field_description:mo_ukr_fiscal_recorder.field_pos_config__box_fiscal_ip
+#: model:ir.model.fields,field_description:mo_ukr_fiscal_recorder.field_pos_session__box_fiscal_ip
+msgid "Box Fiscal Ip"
+msgstr ""
+
+#. module: mo_ukr_fiscal_recorder
+#: model:ir.model.fields,field_description:mo_ukr_fiscal_recorder.field_pos_config__box_with_fiscal
+#: model:ir.model.fields,field_description:mo_ukr_fiscal_recorder.field_pos_session__box_with_fiscal
+msgid "Box With Fiscal"
+msgstr ""
+
+#. module: mo_ukr_fiscal_recorder
 #: code:addons/mo_ukr_fiscal_recorder/models/pos_config.py:0
 #, python-format
 msgid "Cannot get {} controller"
+msgstr ""
+
+#. module: mo_ukr_fiscal_recorder
+#: model:ir.model,name:mo_ukr_fiscal_recorder.model_cash_box_out
+msgid "Cash Box Out"
 msgstr ""
 
 #. module: mo_ukr_fiscal_recorder
@@ -164,25 +181,35 @@ msgstr ""
 
 #. module: mo_ukr_fiscal_recorder
 #: model_terms:ir.ui.view,arch_db:mo_ukr_fiscal_recorder.view_pos_config_fiscal_recorder_kanban
-#: model_terms:ir.ui.view,arch_db:mo_ukr_fiscal_recorder.view_pos_session_fiscal_recorder_form
+msgid ""
+"Print Product\n"
+"                                X-Report"
+msgstr ""
+
+#. module: mo_ukr_fiscal_recorder
+#. openerp-web
+#: code:addons/mo_ukr_fiscal_recorder/static/src/xml/fiscal.xml:0
+#: code:addons/mo_ukr_fiscal_recorder/static/src/xml/fiscal.xml:0
+#, python-format
 msgid "Print Product X-Report"
 msgstr ""
 
 #. module: mo_ukr_fiscal_recorder
+#. openerp-web
+#: code:addons/mo_ukr_fiscal_recorder/static/src/xml/fiscal.xml:0
+#: code:addons/mo_ukr_fiscal_recorder/static/src/xml/fiscal.xml:0
 #: model_terms:ir.ui.view,arch_db:mo_ukr_fiscal_recorder.view_pos_config_fiscal_recorder_kanban
-#: model_terms:ir.ui.view,arch_db:mo_ukr_fiscal_recorder.view_pos_session_fiscal_recorder_form
+#, python-format
 msgid "Print X-Report"
 msgstr ""
 
 #. module: mo_ukr_fiscal_recorder
+#. openerp-web
+#: code:addons/mo_ukr_fiscal_recorder/static/src/xml/fiscal.xml:0
+#: code:addons/mo_ukr_fiscal_recorder/static/src/xml/fiscal.xml:0
 #: model_terms:ir.ui.view,arch_db:mo_ukr_fiscal_recorder.view_pos_config_fiscal_recorder_kanban
-#: model_terms:ir.ui.view,arch_db:mo_ukr_fiscal_recorder.view_pos_session_fiscal_recorder_form
+#, python-format
 msgid "Print Z-Report"
-msgstr ""
-
-#. module: mo_ukr_fiscal_recorder
-#: model_terms:ir.ui.view,arch_db:mo_ukr_fiscal_recorder.view_pos_session_fiscal_recorder_form
-msgid "Print daily product report without zeroing"
 msgstr ""
 
 #. module: mo_ukr_fiscal_recorder

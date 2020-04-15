@@ -3,6 +3,9 @@ odoo.define('mo_ukr_fiscal_recorder.gera_fiscal_kanban', function(require) {
 
 var KanbanController = require('web.KanbanController');;
 var session = require('web.session');
+var crashmanager = require('web.ErrorDialogRegistry');
+var core = require('web.core')
+var _t = core._t
 
 
 KanbanController.include({
@@ -32,22 +35,32 @@ KanbanController.include({
     },
 
     process_gera_report: function (boxes, report_type) {
+        var self = this;
         for (var box in boxes) {
-                this.call(
-                    'iot_longpolling',
-                    'action',
-                    box,
-                    boxes[box][0],
-                    {
-                         action: boxes[box][3],
-                         report_type: report_type,
-                         device_id: boxes[box][0],
-                         user: boxes[box][3],
-                         password: boxes[box][4]
-                    },
-                    '',
-                    ''
-                );
+            this.call(
+                'iot_longpolling',
+                'action',
+                box,
+                boxes[box][0],
+                {
+                     action: boxes[box][3],
+                     report_type: report_type,
+                     device_id: boxes[box][0],
+                     user: boxes[box][3],
+                     password: boxes[box][4]
+                },
+                '',
+                ''
+            ).then(function (res) {
+               if ((!res.result && res.error.message) || (!res.result && !res.error)){
+                   var error =  res.error
+                   if (!res.result && res.error) {
+                        self.do_warn(_t("Error"), _t("An error occurred during printing receipt. " + error.data.message));
+                   } else {
+                        self.do_warn(_t("Error"), _t("An error occurred during printing receipt."));
+                   }
+               }
+            });
         }
      }
 
