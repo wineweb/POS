@@ -4,6 +4,8 @@ odoo.define('mo_ukr_fiscal_recorder.gera_fiscal_form', function(require) {
 var FormController = require('web.FormController');
 var session = require('web.session');
 var rpc = require('web.rpc');
+var core = require('web.core')
+var _t = core._t
 
 
 FormController.include({
