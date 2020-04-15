@@ -33,7 +33,7 @@ msgstr "Винкла помилка під час друку чеку."
 #: code:addons/mo_gera/static/src/js/gera_fiscal_kanban.js:0
 #, python-format
 msgid "An error occurred during printing receipt. "
-msgstr "Винкла помилка під час друку чеку. "
+msgstr "Виникла помилка під час друку чеку. "
 
 #. module: mo_gera
 #: model:ir.model.fields,field_description:mo_gera.field_pos_session__box_with_fiscal_comment
