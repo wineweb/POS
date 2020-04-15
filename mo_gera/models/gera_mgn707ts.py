@@ -96,7 +96,7 @@ class FiscalRecorderGeraMGN707TS(models.Model):
         if self.fiscal_recorder == _key:
             exist = self.search(
                 [('fiscal_recorder', '=', self.fiscal_recorder), ('fiscal_serial', '=', self.fiscal_serial)])
-            if exist:
+            if len(exist) > 1:
                 raise UserError(_('You Can not create fiscal recorder with same serial number!'))
 
     @api.onchange('gr_comment_in_io_receipt')
